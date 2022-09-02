@@ -1,0 +1,11 @@
+  This is a new text file created by James H :)
+ 118 mkdir CSE278
+ 119 cd CSE278 
+ 120 mkdir homework 
+ 121 nano myFile.txt 
+ 122 cat myFile.txt 
+ 123 cp myFile.txt ./homework 
+ 124 cd homework 
+ 125 mv myFile.txt cmd_history.txt 
+ 126 cd ../ 
+ 127 history 10 | nano ./homework/cmd_history.txt
