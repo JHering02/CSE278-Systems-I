@@ -5,7 +5,7 @@ int main() {
     u_int16_t number;
     std::cout << "Input a short integer\n";
     std::cin >> number;
-    u_int16_t mask = 1 << 1;
+    u_int16_t mask = 1 << number;
     u_int16_t resultLSB = number & mask;
     u_int16_t resultMSB = number ^ mask;
     if (resultLSB == 0) {std::cout << "Second least significant bit is 0\n";
