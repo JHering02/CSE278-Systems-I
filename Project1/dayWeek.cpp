@@ -1,6 +1,6 @@
 // Copyright heringja, 13 September 2022, James Hering
 // Uses Christian Zellers algorithm to calculate the correct day of the week
-// removed compile warnings
+// meets cpplint style
 #include <iostream>
 
 int main() {
@@ -8,27 +8,32 @@ int main() {
   int year = 0, month = 0, day = 0;
   std::cin >> year >> month >> day;
   bool isCentury = (year % 100 == 0);
-  bool isLeapYear = ((!isCentury && (year % 4 == 0)) || (isCentury && (year % 400 == 0)));
-  bool isThirty = (month == 4 || month == 6 || month == 9 || month == 11);
-  std::string incorrectDay = "The day is not correct!!!\nThe program will be ended...\n";
-  if(year < 1900 || year > 2050) {
+  bool isLeapYear = ((!isCentury && (year % 4 == 0)) ||
+                    (isCentury && (year % 400 == 0)));
+  bool isThirty = (month == 4 || month == 6 ||
+                   month == 9 || month == 11);
+  std::string incorrectDay = "The day is not correct!!!\n";
+  incorrectDay = incorrectDay + "The program will be ended...\n";
+  if (year < 1900 || year > 2050) {
     std::cout << "The year is not correct!!!\nThe program will be ended...\n";
-  } else if(month < 1 || month > 12) {
+  } else if (month < 1 || month > 12) {
     std::cout << "The month is not correct!!!\nThe program will be ended...\n";
-  } else if(isLeapYear && month == 2 && day > 29) {
+  } else if (isLeapYear && month == 2 && day > 29) {
       std::cout << incorrectDay;
-  } else if(isThirty && day > 30) {
+  } else if (isThirty && day > 30) {
       std::cout << incorrectDay;
-  } else if((day > 31 || day < 1) || (!isLeapYear && (month == 2 && day > 28))) {
+  } else if ((day > 31 || day < 1) ||
+  (!isLeapYear && (month == 2 && day > 28))) {
       std::cout << incorrectDay;
   } else {
-      if(month == 2 || month == 1) {
+      if (month == 2 || month == 1) {
         month += 12;
         year = year - 1;
       }
-      int date = (day + ((26 * (month + 1)) / 10) + (year % 100) + ((year % 100) / 4) + ((year / 100) / 4) + (5 * (year / 100))) % 7;
-      switch(date) {
-        case(0):
+      int date = (day + ((26 * (month + 1)) / 10) + (year % 100)
+      + ((year % 100) / 4) + ((year / 100) / 4) + (5 * (year / 100))) % 7;
+      switch (date) {
+        case (0):
           std::cout << "Saturday\n";
           break;
         case(1):
