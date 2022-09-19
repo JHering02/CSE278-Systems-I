@@ -5,14 +5,12 @@ using namespace std;
 int main() {
 	string str1;
 	string str2;
-    string temp;
     cin >> str1;
-    cin >> temp;
     cin >> str2;
     if(str1.length() == str2.length() || str2.length() > str1.length()) {
-        cout << str2;
+        cout << str2 << endl;
     } else {
-        cout << str1;
+        cout << str1 << endl;
     }
 
    return 0;
