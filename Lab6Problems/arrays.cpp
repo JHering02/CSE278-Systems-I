@@ -25,11 +25,14 @@ void fillArrayRandomly(int prev[], size_t size, int max)
 
 void printHistogram(const int arr[], size_t size, int max)
 {
+    // Declaring an array for each possible int value
     int temp[max] = {0};
-
+    
     for (int i = 0; i < max; ++i) {
         temp[i] = i + 1;
     }
+
+    // Going through and checking frequency of each value
     for (int i = 0; i < max; ++i) 
     {
         int count = 0;
@@ -40,15 +43,20 @@ void printHistogram(const int arr[], size_t size, int max)
                 count++;
             }
         }
+        // Printing the results
         std::cout << "Number " << temp[i] << " repeats " << count << " times." << std::endl;
     }
 }
 
 int main()
 {
+    // Random 1000 array
     int test[1000] = {0};
     fillArrayRandomly(test, 1000, 10);
+    std::cout << "1st List" << std::endl;
     printHistogram(test, 1000, 10);
+    // Random 10000 array
+    std::cout << "2nd List" << std::endl;
     int test2[10000] = {0};
     fillArrayRandomly(test2, 10000, 10);
     printHistogram(test2, 10000, 10);
