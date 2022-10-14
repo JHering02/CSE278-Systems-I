@@ -19,6 +19,6 @@ void printFilesAsFolders(const std::filesystem::path& p, size_t level) {
 }
 
 int main() {
-    std::filesystem::path pa = "/home/james/CSE278/Lab8FileSystems/";
+    std::filesystem::path pa = "/home/heringja/CSE278/Lab8FileSystems/";
     printFilesAsFolders(pa, 0);
 }
