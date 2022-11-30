@@ -20,5 +20,9 @@ void Film::addActors(mysqlpp::StoreQueryResult& myRes) {
   }
 }
 
+std::string Film::toString() {
+   
+}
+
 
 
