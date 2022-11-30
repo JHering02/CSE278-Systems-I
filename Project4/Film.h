@@ -10,6 +10,11 @@ class Film {
   public :
     Film(std::string ti, std::string desc, std::string rate, std::string len);
     void addActors(mysqlpp::StoreQueryResult& myRes);
+    std::string getTitle() {return title;}
+    std::string getDescription() {return description;}
+    std::string getRating() {return rating;}
+    std::vector<std::string> getActorNames() {return actorNames;}
+    std::string toString();
   private : 
     std::string title;
     std::string description;

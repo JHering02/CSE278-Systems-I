@@ -14,7 +14,7 @@ void printMenu() {
     std::cout << " 2 List Films For a Certain Rating "
               << "And Max Length Ordered by Length\n";
     std::cout << " 3 List Total Film Count For Each Rating Less Than a Cost\n";
-    std::cout << " 4 List All Actors In a Film\n";
+    std::cout << " 4 List All Actor Names In a Film\n";
     std::cout << " 5 Exit\n";
     std::cout << std::setfill('~') << std::setw(35) << "" << std::endl;
     std::cout << "Enter a menu number >>> \n";
@@ -76,8 +76,10 @@ std::string listActors(mysqlpp::Connection myDB) {
   mysqlpp::StoreQueryResult res = query.store(bind);
   Film act(bind, "temp", "temp", "temp");
   act.addActors(res);
-  std::cout << "\nActors In Film " << bind;
-  // for(std::string& name : )
+  std::cout << "\nActors In Film " << bind << std::endl;
+  for(std::string& name : act.getActorNames()) {
+
+  }
 }
 
 void respond(int response, mysqlpp::Connection myDB) {
@@ -105,18 +107,19 @@ void respond(int response, mysqlpp::Connection myDB) {
 }
 
 int main(int argc, char* argv[]) {
-    mysqlpp::Connection myDB("cse278F2022", "localhost", "cse278F2022","raspberrySeltzer");
-    // Will prompt the user menu if the necessary files exist
+    mysqlpp::Connection myDB("cse278F2022", "localhost", 
+    "cse278F2022","raspberrySeltzer");
+    // Will prompt the user menu if myDB establishes a connection
     if (myDB.connected()) {
         int response = 0;
         do {
             printMenu();
             std::cin >> response;
             respond(response, myDB);
-            if (response != -1) {
+            if (response != 5) {
             enterToContinue();
             }
-        }while(response != -1);
+        }while(response != 5);
     } else {
         std::cout << "!!! Could not connect to the film database" << std::endl;
     }
