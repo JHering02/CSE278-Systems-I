@@ -31,7 +31,7 @@ std::string listFilmByName(mysqlpp::Connection myDB) {
   std::string bind;
   std::cin >> bind;
   mysqlpp::Query query = myDB.query();
-  query << "SELECT title, description FROM film WHERE title LIKE %0q;";
+  query << "SELECT title, description FROM film WHERE title LIKE %0q%%;";
   query.parse();
   mysqlpp::StoreQueryResult res = query.store(bind);
 
