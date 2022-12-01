@@ -1,3 +1,8 @@
+// Copyright
+// Purpose: The functions for a film object, made for the query application
+// Date 11/30/2022
+// Author James Hering
+
 #define MYSQLPP_MYSQL_HEADERS_BURIED
 
 #include "Film.h"
@@ -5,14 +10,16 @@
 #include <string>
 #include <iostream>
 
-Film::Film(std::string ti, std::string desc, std::string rate, std::string len) {
-   title = ti;
-   description = desc;
-   rating = rate;
-   length = stoi(len);
+Film::Film(std::string ti, std::string de, std::string rate, std::string len) {
+  // Basic parameter constructor here
+  title = ti;
+  description = de;
+  rating = rate;
+  length = stoi(len);
 }
 
-void Film::addActors(mysqlpp::StoreQueryResult& myRes) {
+void Film::addActors(const mysqlpp::StoreQueryResult& myRes) {
+// By taking the stored result, we can add the strings to a vector
   for (const auto& row : myRes) {
      std::string fName = row[0].c_str();
      std::string lName = row[1].c_str();
@@ -20,16 +27,16 @@ void Film::addActors(mysqlpp::StoreQueryResult& myRes) {
   }
 }
 
-std::string Film::printTitle() {
-   std::cout << std::setw(128) << std::left << title;
+void Film::printTitle() {
+std::cout << std::setw(30) << std::left << title;
 }
 
-std::string Film::printDesc() {
-   std::cout << std::left << description;
+void Film::printDesc() {
+std::cout << std::setw(115) << std::left << description;
 }
 
-std::string Film::printRating() {
-   std::cout << std::setw(5) << std::left << rating;
+void Film::printRating() {
+std::cout << std::setw(5) << std::left << rating;
 }
 
 
