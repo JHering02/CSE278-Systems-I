@@ -13,9 +13,12 @@ class Film {
     std::string getTitle() {return title;}
     std::string getDescription() {return description;}
     std::string getRating() {return rating;}
+    int getLength() {return length;}
     std::vector<std::string> getActorNames() {return actorNames;}
-    std::string toString();
-  private : 
+    std::string printTitle();
+    std::string printDesc();
+    std::string printRating();
+  private :
     std::string title;
     std::string description;
     std::string rating;

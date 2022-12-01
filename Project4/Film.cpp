@@ -20,9 +20,21 @@ void Film::addActors(mysqlpp::StoreQueryResult& myRes) {
   }
 }
 
-std::string Film::toString() {
-   
+std::string Film::printTitle() {
+   std::cout << std::setw(128) << std::left << title;
 }
+
+std::string Film::printDesc() {
+   std::cout << std::left << description;
+}
+
+std::string Film::printRating() {
+   std::cout << std::setw(5) << std::left << rating;
+}
+
+
+
+
 
 
 

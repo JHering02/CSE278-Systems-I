@@ -26,7 +26,7 @@ void enterToContinue() {
     std::cin.ignore();
 }
 
-std::string listFilmByName(mysqlpp::Connection myDB) {
+void listFilmByName(mysqlpp::Connection& myDB) {
   std::cout << "Enter characters to search movies from >>> ";
   std::string bind;
   std::cin >> bind;
@@ -34,10 +34,19 @@ std::string listFilmByName(mysqlpp::Connection myDB) {
   query << "SELECT title, description FROM film WHERE title LIKE %0q%%;";
   query.parse();
   mysqlpp::StoreQueryResult res = query.store(bind);
-
+  std::cout << "\n";
+  std::cout << std::setw(128) << std::left << "Title";
+  std::cout << std::left << " Description" << std::endl;
+  for (size_t row = 0; row < res.size(); row++) {
+    Film f(res[row][0].c_str(), res[row][1].c_str(), "temp", "0");
+    f.printTitle();
+    std::cout << " ";
+    f.printDesc();
+    std::cout << "\n";
+  }
 }
 
-std::string listFilmByRating(mysqlpp::Connection myDB) {
+void listFilmByRating(mysqlpp::Connection& myDB) {
   std::cout << "Enter Rating followed by a space & MaxLength >>> ";
   std::string bind;
   int bind2;
@@ -48,9 +57,23 @@ std::string listFilmByRating(mysqlpp::Connection myDB) {
         << "length < %1 AND rating = %0q ORDER BY length ASC;";
   query.parse();
   mysqlpp::StoreQueryResult res = query.store(bind, bind2);
+  std::cout << "\n";
+  std::cout << "All Films For Rating " << bind << " & MaxLength " << bind2;
+  std::cout << "\n";
+  std::cout << std::setw(128) << std::left << "Title";
+  std::cout << std::setw(256) << std::left << " Description";
+  std::cout << "length\n";
+  for (const auto& row : res) {
+    Film f(row[0].c_str(), row[1].c_str(), "temp", row[2].c_str());
+    f.printTitle();
+    std::cout << " ";
+    f.printDesc();
+    std::cout << "     " << f.getLength();
+    std::cout << "\n";
+  }
 }
 
-std::string countRatingByPrice(mysqlpp::Connection myDB) {
+void countRatingByPrice(mysqlpp::Connection& myDB) {
   std::cout << "Enter The Maximum RentalPrice >>> ";
   int bind;
   std::cin >> bind;
@@ -59,9 +82,16 @@ std::string countRatingByPrice(mysqlpp::Connection myDB) {
         << "WHERE rental_rate < %0 GROUP BY rating;";
   query.parse();
   mysqlpp::StoreQueryResult res = query.store(bind);
+  std::cout << std::setw(64) << std::left << "COUNT(*)";
+  std::cout << std::setw(32) << std::left << " Rating" << std::endl;
+  for(const auto& row : res) {
+    std::cout << std::setw(64) << std::left << row[0].c_str();
+    std::cout << std::setw(32) << std::left << " " << row[1].c_str();
+    std::cout << "\n";
+  }
 }
 
-std::string listActors(mysqlpp::Connection myDB) {
+void listActors(mysqlpp::Connection& myDB) {
   std::cout << "Enter the Name of the Film >>> ";
   std::string bind;
   std::cin >> bind;
@@ -78,23 +108,23 @@ std::string listActors(mysqlpp::Connection myDB) {
   act.addActors(res);
   std::cout << "\nActors In Film " << bind << std::endl;
   for(std::string& name : act.getActorNames()) {
-
+    std::cout << name << std::endl;
   }
 }
 
-void respond(int response, mysqlpp::Connection myDB) {
+void respond(int response, mysqlpp::Connection& myDB) {
     switch (response) {
     case (1):
-        std::cout << listFilmByName(myDB);
+        listFilmByName(myDB);
         break;
     case (2):
-        std::cout << listFilmByRating(myDB);
+        listFilmByRating(myDB);
         break;
     case (3):
-        std::cout << countRatingByPrice(myDB);
+        countRatingByPrice(myDB);
         break;
     case (4):
-        std::cout << listActors(myDB);
+        listActors(myDB);
         break;
     case (5):
         std::cout << "Bye!" << std::endl;
